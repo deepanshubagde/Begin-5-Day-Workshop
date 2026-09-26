@@ -1,0 +1,6 @@
+{
+  "name": "Advance Manifestation - Assessment Form",
+  "description": "Fill the form to know yourself Better. A mindful one-page reflection and manifestation assessment form with Google Sheets integration.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
