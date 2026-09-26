@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Sparkles, CheckCircle2, ShieldCheck } from 'lucide-react';
 
 interface BannerHeaderProps {
@@ -12,37 +12,31 @@ export const BannerHeader: React.FC<BannerHeaderProps> = ({
   completedCount,
   totalRequired,
   headerImageUrl,
-  fitMode = 'cover',
 }) => {
-  const [loadFailed, setLoadFailed] = useState(false);
   const percentage = Math.min(100, Math.round((completedCount / totalRequired) * 100));
 
-  // Reset error state whenever the URL prop updates
-  useEffect(() => {
-    setLoadFailed(false);
-  }, [headerImageUrl]);
+  // Never load any Google Form screenshot or googleusercontent image
+  const isValidCustomUrl =
+    headerImageUrl &&
+    !headerImageUrl.includes('googleusercontent.com') &&
+    !headerImageUrl.includes('form-header');
 
-  // Choose the best image source:
-  // 1. If custom header is provided and hasn't failed, use it
-  // 2. Otherwise use static /custom-header.png
-  // 3. If that fails, fallback to Google CDN
-  const bannerSrc = (!loadFailed && headerImageUrl)
-    ? headerImageUrl
-    : (loadFailed
-        ? 'https://lh5.googleusercontent.com/YRQZd5W2GIX6GMWRP3SdqUBIoj3n_Q6szcJldNtse7QWuSYGJ1g196KIsbtgTpN3NG0SdIOMA0-uWpA=w1884'
-        : '/custom-header.png');
+  const bannerSrc = isValidCustomUrl ? headerImageUrl : '/custom-header.png';
 
   return (
     <div className="relative w-full">
-      {/* Top Banner Image - Responsive Natural Scaling (Never crops on mobile or desktop) */}
+      {/* Top Banner Image - Responsive Natural Scaling (Only the header graphic) */}
       <div className="relative w-full overflow-hidden rounded-t-2xl sm:rounded-t-3xl bg-stone-900">
         <img
           key={bannerSrc}
           src={bannerSrc}
           alt="Advanced Manifestation - Monkhood Life"
           className="w-full h-auto block object-cover object-center transition-opacity duration-300"
-          onError={() => {
-            setLoadFailed(true);
+          onError={(e) => {
+            const target = e.currentTarget;
+            if (!target.src.endsWith('/custom-header.png')) {
+              target.src = '/custom-header.png';
+            }
           }}
           loading="eager"
         />

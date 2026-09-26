@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <!-- Background Gradient: Deep crimson to vibrant saffron-amber matching header -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#450a0a" />
+      <stop offset="40%" stop-color="#7f1d1d" />
+      <stop offset="75%" stop-color="#991b1b" />
+      <stop offset="100%" stop-color="#c2410c" />
+    </linearGradient>
+
+    <!-- Gold Foil Gradient -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a" />
+      <stop offset="35%" stop-color="#facc15" />
+      <stop offset="70%" stop-color="#eab308" />
+      <stop offset="100%" stop-color="#ca8a04" />
+    </linearGradient>
+
+    <!-- Inner Spiritual Glow -->
+    <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fef9c3" stop-opacity="0.85" />
+      <stop offset="45%" stop-color="#fde047" stop-opacity="0.5" />
+      <stop offset="75%" stop-color="#ea580c" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#7f1d1d" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Squircle Base matching the Manifestation identity -->
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#bgGrad)" stroke="#f59e0b" stroke-width="1.2" stroke-opacity="0.6" />
+
+  <!-- Ambient Glow Behind Lotus Star -->
+  <circle cx="32" cy="32" r="22" fill="url(#sunGlow)" />
+
+  <!-- Outer Sacred Geometry Ring -->
+  <circle cx="32" cy="32" r="21" fill="none" stroke="url(#goldGrad)" stroke-width="1" stroke-dasharray="2 2" stroke-opacity="0.75" />
+  <circle cx="32" cy="32" r="18" fill="none" stroke="url(#goldGrad)" stroke-width="0.8" stroke-opacity="0.9" />
+
+  <!-- 8-Pointed Radiant Starburst / Manifestation Mandala -->
+  <!-- Top & Bottom Points -->
+  <polygon points="32,9 35.5,23 32,26 28.5,23" fill="url(#goldGrad)" />
+  <polygon points="32,55 35.5,41 32,38 28.5,41" fill="url(#goldGrad)" />
+
+  <!-- Left & Right Points -->
+  <polygon points="9,32 23,35.5 26,32 23,28.5" fill="url(#goldGrad)" />
+  <polygon points="55,32 41,35.5 38,32 41,28.5" fill="url(#goldGrad)" />
+
+  <!-- Diagonal Petal Rays -->
+  <polygon points="15.7,15.7 28.5,22 27.5,26.5 22,25.5" fill="url(#goldGrad)" opacity="0.95" />
+  <polygon points="48.3,15.7 35.5,22 36.5,26.5 42,25.5" fill="url(#goldGrad)" opacity="0.95" />
+  <polygon points="15.7,48.3 28.5,42 27.5,37.5 22,38.5" fill="url(#goldGrad)" opacity="0.95" />
+  <polygon points="48.3,48.3 35.5,42 36.5,37.5 42,38.5" fill="url(#goldGrad)" opacity="0.95" />
+
+  <!-- Center Golden Lotus Core & Jewel -->
+  <circle cx="32" cy="32" r="8" fill="#450a0a" stroke="url(#goldGrad)" stroke-width="1.2" />
+  <circle cx="32" cy="32" r="5" fill="url(#goldGrad)" />
+  <circle cx="32" cy="32" r="2.2" fill="#ffffff" />
+</svg>

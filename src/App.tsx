@@ -49,13 +49,19 @@ export default function App() {
   const [isSubmissionsDrawerOpen, setIsSubmissionsDrawerOpen] = useState(false);
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
 
-  // Header Image State
+  // Header Image State - strictly default to the clean custom-header banner
   const [headerImageUrl, setHeaderImageUrl] = useState<string>(() => {
     try {
       const saved = localStorage.getItem(HEADER_IMG_STORAGE_KEY);
-      if (saved) return saved;
+      if (
+        saved &&
+        !saved.includes('googleusercontent.com') &&
+        !saved.includes('form-header')
+      ) {
+        return saved;
+      }
     } catch {}
-    return '';
+    return '/custom-header.png';
   });
 
   const [headerFitMode, setHeaderFitMode] = useState<'cover' | 'contain'>(() => {
@@ -89,9 +95,14 @@ export default function App() {
           setSheetWebhookUrl(data.googleSheetWebhookUrl);
         }
         if (data && data.headerImageUrl) {
-          setHeaderImageUrl(data.headerImageUrl);
+          const cleanUrl =
+            data.headerImageUrl.includes('googleusercontent.com') ||
+            data.headerImageUrl.includes('form-header')
+              ? '/custom-header.png'
+              : data.headerImageUrl;
+          setHeaderImageUrl(cleanUrl);
           try {
-            localStorage.setItem(HEADER_IMG_STORAGE_KEY, data.headerImageUrl);
+            localStorage.setItem(HEADER_IMG_STORAGE_KEY, cleanUrl);
           } catch {}
         }
       })

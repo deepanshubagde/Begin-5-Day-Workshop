@@ -66,7 +66,7 @@ app.get('/api/header-image', (req, res) => {
       return res.sendFile(p);
     }
   }
-  const def = path.join(__dirname, 'public', 'form-header.png');
+  const def = path.join(__dirname, 'public', 'custom-header.png');
   if (fs.existsSync(def)) {
     return res.sendFile(def);
   }
