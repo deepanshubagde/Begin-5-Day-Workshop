@@ -14,7 +14,7 @@ export const onRequestGet = async (context: { env: Env }) => {
   return new Response(
     JSON.stringify({
       googleSheetWebhookUrl: targetUrl,
-      headerImageUrl: '/custom-header.png',
+      headerImageUrl: '/form-header.png',
       syncToGoogleForm: false,
     }),
     {

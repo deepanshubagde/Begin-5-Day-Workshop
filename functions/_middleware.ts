@@ -17,8 +17,18 @@ export const onRequest = async (context: PagesContext) => {
     const origin = url.origin;
     let html = await response.text();
 
+    // Ensure preview image URLs match current origin
+    if (origin !== 'https://begin.monkhood.in') {
+      html = html
+        .replace(/https:\/\/begin\.monkhood\.in\/form-header\.png/g, `${origin}/form-header.png`)
+        .replace(/https:\/\/begin\.monkhood\.in\/custom-header\.png/g, `${origin}/custom-header.png`)
+        .replace(/https:\/\/begin\.monkhood\.in\//g, `${origin}/`);
+    }
+
     // Replace relative paths with absolute URLs for social bots
     html = html
+      .replace(/content="\/form-header\.png"/g, `content="${origin}/form-header.png"`)
+      .replace(/href="\/form-header\.png"/g, `href="${origin}/form-header.png"`)
       .replace(/content="\/custom-header\.png"/g, `content="${origin}/custom-header.png"`)
       .replace(/href="\/custom-header\.png"/g, `href="${origin}/custom-header.png"`);
 

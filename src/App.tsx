@@ -49,19 +49,15 @@ export default function App() {
   const [isSubmissionsDrawerOpen, setIsSubmissionsDrawerOpen] = useState(false);
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
 
-  // Header Image State - strictly default to the clean custom-header banner
+  // Header Image State - default to /form-header.png which is verified on live CDN
   const [headerImageUrl, setHeaderImageUrl] = useState<string>(() => {
     try {
       const saved = localStorage.getItem(HEADER_IMG_STORAGE_KEY);
-      if (
-        saved &&
-        !saved.includes('googleusercontent.com') &&
-        !saved.includes('form-header')
-      ) {
+      if (saved && !saved.includes('googleusercontent.com')) {
         return saved;
       }
     } catch {}
-    return '/custom-header.png';
+    return '/form-header.png';
   });
 
   const [headerFitMode, setHeaderFitMode] = useState<'cover' | 'contain'>(() => {
@@ -95,11 +91,9 @@ export default function App() {
           setSheetWebhookUrl(data.googleSheetWebhookUrl);
         }
         if (data && data.headerImageUrl) {
-          const cleanUrl =
-            data.headerImageUrl.includes('googleusercontent.com') ||
-            data.headerImageUrl.includes('form-header')
-              ? '/custom-header.png'
-              : data.headerImageUrl;
+          const cleanUrl = data.headerImageUrl.includes('googleusercontent.com')
+            ? '/form-header.png'
+            : data.headerImageUrl;
           setHeaderImageUrl(cleanUrl);
           try {
             localStorage.setItem(HEADER_IMG_STORAGE_KEY, cleanUrl);

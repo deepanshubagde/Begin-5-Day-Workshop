@@ -15,29 +15,38 @@ export const BannerHeader: React.FC<BannerHeaderProps> = ({
 }) => {
   const percentage = Math.min(100, Math.round((completedCount / totalRequired) * 100));
 
-  // Never load any Google Form screenshot or googleusercontent image
-  const isValidCustomUrl =
-    headerImageUrl &&
-    !headerImageUrl.includes('googleusercontent.com') &&
-    !headerImageUrl.includes('form-header');
+  // Primary image source: use form-header.png (already active on Cloudflare CDN) or custom-header.png
+  const [currentSrc, setCurrentSrc] = React.useState<string>(() => {
+    if (headerImageUrl && !headerImageUrl.includes('googleusercontent.com')) {
+      return headerImageUrl;
+    }
+    return '/form-header.png';
+  });
 
-  const bannerSrc = isValidCustomUrl ? headerImageUrl : '/custom-header.png';
+  React.useEffect(() => {
+    if (headerImageUrl && !headerImageUrl.includes('googleusercontent.com')) {
+      setCurrentSrc(headerImageUrl);
+    }
+  }, [headerImageUrl]);
+
+  const handleImageError = () => {
+    if (currentSrc.includes('custom-header.png')) {
+      setCurrentSrc('/form-header.png');
+    } else if (currentSrc.includes('form-header.png')) {
+      setCurrentSrc('/custom-header.png');
+    }
+  };
 
   return (
     <div className="relative w-full">
       {/* Top Banner Image - Responsive Natural Scaling (Only the header graphic) */}
       <div className="relative w-full overflow-hidden rounded-t-2xl sm:rounded-t-3xl bg-stone-900">
         <img
-          key={bannerSrc}
-          src={bannerSrc}
+          key={currentSrc}
+          src={currentSrc}
           alt="Advanced Manifestation - Monkhood Life"
           className="w-full h-auto block object-cover object-center transition-opacity duration-300"
-          onError={(e) => {
-            const target = e.currentTarget;
-            if (!target.src.endsWith('/custom-header.png')) {
-              target.src = '/custom-header.png';
-            }
-          }}
+          onError={handleImageError}
           loading="eager"
         />
       </div>
